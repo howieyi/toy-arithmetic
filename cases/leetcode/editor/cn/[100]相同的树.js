@@ -51,32 +51,15 @@
  */
 var isSameTree = function (p, q) {
 
-  var getNodes = function (node, buffer) {
-    if (!node) return buffer;
+  var compareTree = function (a, b) {
+    if (a === b && a === null) return true;
 
-    buffer.push(node.val);
+    if (b === null || a === null) return false;
 
-    if (node.left) {
-      getNodes(node.left, buffer);
-    } else {
-      buffer.push(null);
-    }
-
-    if (node.right) {
-      getNodes(node.right, buffer);
-    } else {
-      buffer.push(null);
-    }
-
-    return buffer;
+    return a.val === b.val && compareTree(a.left, b.left) && compareTree(a.right, b.right);
   };
 
-  var buffer1 = [], buffer2 = [];
-  getNodes(p, buffer1);
-  getNodes(q, buffer2);
-
-  // console.log(buffer1, buffer2);
-  return buffer1.join(',') === buffer2.join(',');
+  return compareTree(p, q);
 };
 
 // var t1 = {val: 1, left: {left: {val: 2}, right: {val: 3}, val: 7}, right: {val: 8, left: {val: 4}, right: {val: 5}}};
